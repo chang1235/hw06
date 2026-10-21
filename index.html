@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<!-- 宣告使用 HTML5；DOCTYPE 是文件類型宣告，不需要結束標籤。 -->
+<html lang="zh-Hant">
+<!-- html 包住整份文件；lang="zh-Hant" 表示主要使用繁體中文。 -->
+<head>
+    <!-- head 放網頁資訊；這些資訊不會直接成為頁面中的報導文字。 -->
+    <meta charset="UTF-8">
+    <!-- UTF-8 可正確處理中文；meta 是空元素，不寫結束標籤。 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- viewport 讓行動裝置使用裝置寬度；不代表固定寬度的圖片會自動縮小。 -->
+    <meta name="description" content="走進台中文學館，認識日式宿舍群、文學公園與老榕樹，透過清單、有框表格、照片、影片與 Google 地圖閱讀城市文學故事。">
+    <!-- description 提供網頁摘要；author 標示作者。 -->
+    <meta name="author" content="張以姍">
+    <!-- robots 表達索引意圖；本機檔案不會因此自動被搜尋引擎收錄。 -->
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph 提供分享摘要，不是搜尋排名保證。 -->
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:title" content="台中文學館報導｜城市裡的文藝風景">
+    <meta property="og:description" content="認識台中文學館的日式宿舍群與文學記憶，搭配景點表格、照片、影片及位置地圖。">
+    <meta property="og:image" content="https://yusi-group.com/wp-content/uploads/2022/02/%E4%B8%8A%E5%85%B8%E6%99%AF%E8%A7%80%E3%80%8A%E8%87%BA%E4%B8%AD%E6%96%87%E5%AD%B8%E9%A4%A8%E5%91%A8%E9%82%8A%E6%99%AF%E8%A7%80%E5%85%AC%E5%9C%92%E3%80%8B-2.jpeg">
+    <meta property="og:image:alt" content="台中文學館日式建築與庭園景觀">
+    <meta property="article:published_time" content="2026-10-07">
+    <meta property="article:modified_time" content="2026-10-21">
+    <!-- 正式上線後，再以真實公開網址加入 canonical 及 og:url；不要使用本機或虛構網址。 -->
+    <title>台中文學館報導｜HW06 CSS 樣式練習</title>
+    <!-- title 顯示在瀏覽器分頁；與 body 中的 h1 用途不同。 -->
+    <!--
+        方法二：style 元素放在 head，集中設定整頁共用樣式。
+        CSS 規則的結構是「選擇器 { 屬性: 值; }」，CSS 註解使用 /* ... */。
+        元素選擇器如 body、h2；類別選擇器如 .video-frame；ID 選擇器如 #tips。
+        方法一的行內樣式，請在本文搜尋「方法一」查看三處示範。
+    -->
+    <style>
+        /* 1. 盒子尺寸與全頁文字：深檜木字色與榻榻米米白背景 */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+            font-size: 17px;
+            line-height: 1.85;
+            color: #332c27;            /* 深木褐色文字 */
+            background-color: #f7f5f0; /* 米白榻榻米色背景 */
+        }
+
+        /* 2. 頁首：日式深檜木主色背景與暖木飾條 */
+        header {
+            padding: 34px 36px;
+            background-color: #3b2f2f; /* 日式古樸深檜木色 */
+            color: #fcfaf2;
+            border-top: 6px solid #c49a6c; /* 暖木質感飾條 */
+            border-radius: 6px;
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            font-size: 2rem;
+            line-height: 1.4;
+            letter-spacing: 0.04em;
+        }
+
+        header p {
+            margin: 10px 0;
+        }
+
+        small {
+            font-size: 0.85em;
+            font-style: normal;
+        }
+
+        /* 3. 導覽與連結：抹茶淡綠底與木系點選框 */
+        nav {
+            margin: 24px 0;
+            padding: 20px 24px;
+            background-color: #eae6df; /* 暖木灰背景 */
+            border: 1px solid #d4cdbf;
+            border-radius: 6px;
+        }
+
+        nav h2 {
+            margin-top: 0;
+            padding: 0;
+            border: 0;
+            font-size: 1.1rem;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        nav li {
+            display: inline-block;
+            margin: 4px 6px 4px 0;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #fcfaf5;
+            border: 1px solid #d4cdbf;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        a {
+            color: #4a6b5d; /* 沉靜抹茶綠連結色 */
+            text-underline-offset: 4px;
+            overflow-wrap: anywhere;
+        }
+
+        /* 虛擬類別 :hover 表示滑鼠移入；:focus-visible 提供鍵盤焦點提示。 */
+        a:hover {
+            color: #8c532b; /* 棕紅赭石色 hover */
+            text-decoration: underline;
+        }
+
+        a:focus-visible, summary:focus-visible {
+            outline: 3px solid #c49a6c;
+            outline-offset: 4px;
+        }
+
+        /* 4. 文章章節與盒子模型：宣紙白卡片背景與抹茶色標題左線 */
+        section, aside {
+            margin: 24px 0;
+            padding: 24px 28px;
+            background-color: #ffffff;
+            border: 1px solid #e3decb;
+            border-radius: 6px;
+        }
+
+        h2 {
+            margin: 0 0 18px;
+            padding-left: 12px;
+            border-left: 4px solid #4a6b5d; /* 抹茶綠章節側線 */
+            font-size: 1.4rem;
+            line-height: 1.5;
+            color: #2b221d;
+        }
+
+        h3 {
+            margin: 22px 0 10px;
+            font-size: 1.1rem;
+            color: #4a6b5d;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        ul, ol {
+            padding-left: 1.6em;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        hr {
+            margin: 26px 0;
+            border: 0;
+            border-top: 1px solid #dcd5c7;
+        }
+
+        /* 5. 表格：淡綠抹茶表頭與雅緻木系框線 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+            overflow-wrap: anywhere;
+        }
+
+        caption {
+            margin-bottom: 12px;
+            text-align: left;
+            font-weight: bold;
+            color: #3b2f2f;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #d4cdbf;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        thead {
+            background-color: #e2e8e4; /* 淺抹茶表頭 */
+        }
+
+        tbody th {
+            background-color: #f2f5f3;
+        }
+
+        /* 6. 圖片與嵌入媒體：類別區分影片比例與地圖高度。 */
+        figure {
+            margin: 18px 0;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        figcaption {
+            margin-top: 10px;
+            color: #63574e;
+            font-size: 0.85em;
+        }
+
+        iframe {
+            display: block;
+            max-width: 100%;
+            border: 0;
+            border-radius: 4px;
+        }
+
+        .video-frame {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 340px;
+        }
+
+        /* 7. ID 選擇器隻設定這個補充區：日式竹黃/暖陽配色區塊 */
+        #tips {
+            background-color: #f4efe1; /* 暖木茶色背景 */
+            border-left: 5px solid #c49a6c; /* 暖琥珀色線條 */
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #3b2f2f;
+        }
+
+        footer {
+            margin-top: 32px;
+            padding: 20px 0;
+            border-top: 2px solid #4a6b5d;
+            color: #63574e;
+            text-align: center;
+        }
+
+        /* 8. 窄視窗響應式調整 */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px 12px;
+                font-size: 16px;
+            }
+
+            header, nav, section, aside {
+                padding: 20px 16px;
+            }
+
+            h1 {
+                font-size: 1.65rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        第六次作業：一頁式台中文學館報導。
+        本範例延續 HW05 的 HTML 語意結構，加入 CSS 配色、文字與盒子模型。
+        配色特色：採用文學館經典的「日式檜木褐 #3b2f2f」、「抹茶綠 #4a6b5d」與「榻榻米米白 #f7f5f0」。
+        方法一：在個別元素的 style 屬性內寫行內樣式；本頁共有三處示範。
+        方法二：在 head 的 style 元素內集中撰寫共用規則。
+    -->
+
+    <!-- header 是頁首；id="top" 是下方「回到頁首」連結的目的地。 -->
+    <header id="top">
+        <h1>台中文學館：城市裡的文藝風景</h1>
+        <p><small>城市走讀 · 日式建築 · 文學記憶</small></p>
+        <p><strong>從日式宿舍群到文學步道，一起閱讀台中的文學記憶。</strong></p>
+        <!-- 方法一（1/3）：行內 style 調整標示文字為淡暖木色背景與紅赭文字 -->
+        <p>本期焦點：<mark style="background-color: #e3d5c3; color: #522b1b; padding: 2px 6px;">日式建築與綠意庭園</mark>，從展館報導延伸到位置地圖。</p>
+        <p>作者：張以姍｜報導整理日期：<time datetime="2026-10-14">2026 年 10 月 14 日</time></p>
+        <!-- 方法一（3/3）：共用的 small 為正常字體，這一處另用行內樣式改為斜體 -->
+        <p><small style="font-style: italic;">本文為專題報導資料整理。</small></p>
+    </header>
+
+    <!-- nav 表示導覽區；href="#名稱" 會跳到本頁相同 id 的元素。 -->
+    <nav aria-label="報導目錄">
+        <h2>報導目錄</h2>
+        <ul>
+            <li><a href="#intro">館區簡介</a></li>
+            <li><a href="#highlights">景點特色與參觀順序</a></li>
+            <li><a href="#table">展館比較表</a></li>
+            <li><a href="#photo">文學館照片</a></li>
+            <li><a href="#video">影音報導</a></li>
+            <li><a href="#map">位置地圖</a></li>
+            <li><a href="#tips">走讀小提醒</a></li>
+            <li><a href="#sources">資料來源</a></li>
+        </ul>
+    </nav>
+
+    <hr>
+
+    <!-- main 包住本頁主要內容；article 表示可獨立閱讀的完整報導。 -->
+    <main id="main-content">
+        <article aria-label="台中文學館專題報導">
+            <section id="intro">
+                <h2>一、館區簡介</h2>
+                <p>
+                    台中文學館位於台中市西區，前身為警察宿舍群，經整修後於 <strong>2016 年</strong>正式開園，
+                    成為市民認識在地文學與歷史的重要藝文場域。園內結合日式木造建築、文學展館與綠意庭園，
+                    讓人能在喧囂的城市中找到靜心閱讀與散步的空間。
+                </p>
+                <p>
+                    園內最具代表性的地標是巨大的<strong>老榕樹</strong>與文學木棧道。
+                    這群日式宿舍建築充滿濃厚的歷史韻味，
+                    後來被妥善保存並活化為展覽空間，也是台中重要的文化地標之一。
+                </p>
+                <p>
+                    從日式木造房舍到文學主題展覽，台中文學館像一份可以細細品味的城市詩篇。
+                    本篇以展館特色與建議參觀順序，介紹這座充滿人文氣息的園區。
+                </p>
+                <p>館址：台中市西區樂群街 38 號。<br>閱讀重點：日式建築、文學展覽與綠意庭園。</p>
+            </section>
+
+            <hr>
+            <section id="highlights">
+                <h2>二、景點特色與參觀順序</h2>
+                <h3>值得留意的三個特色</h3>
+                <ul>
+                    <li><strong>日式建築：</strong>保留完整的警察宿舍群，展現傳統木造美學。</li>
+                    <li><strong>百年老榕：</strong>園區內枝葉繁茂的大榕樹，為遊客提供遮蔭與獨特景觀。</li>
+                    <li><strong>文學氣息：</strong>常設展與主題特展串聯台中的文學發展史。</li>
+                </ul>
+
+                <h3>建議參觀順序</h3>
+                <!-- 方法一（2/3）：設定獨立的赭木色左側框線 -->
+                <p style="border-left: 4px solid #c49a6c; padding-left: 14px;">以下是本報導規劃的參觀建議路線。</p>
+                <ol>
+                    <li>進入園區後，先閱讀導覽地圖，了解各棟展館分布位置。</li>
+                    <li>漫步至中庭廣場，欣賞老榕樹與日式木造建築群的交織景致。</li>
+                    <li>依次參觀各主題展館，閱讀在地作家的文學作品與手稿。</li>
+                    <li>最後在戶外文學步道或休憩區放慢腳步，感受藝文氛圍。</li>
+                </ol>
+            </section>
+
+            <hr>
+            <section id="table">
+                <h2>三、展館比較表</h2>
+                <table>
+                    <caption>台中文學館三處核心區域的特色與觀察重點</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">區域名稱</th>
+                            <th scope="col">主要特色</th>
+                            <th scope="col">建議觀察重點</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">文學主題展館</th>
+                            <td>展示台中在地文學發展與作家手稿</td>
+                            <td>常設展內容及多媒體互動裝置</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">日式宿舍群</th>
+                            <td>保留歷史風貌的警察宿舍建築</td>
+                            <td>木造屋架、窗櫺與日式庭園造景</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">大榕樹廣場</th>
+                            <td>園區地標性老樹與戶外空間</td>
+                            <td>樹冠幅員與綠意盎然的休憩氛圍</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <hr>
+            <section id="photo">
+                <h2>四、文學館照片</h2>
+                <figure>
+                    <img
+                        src="https://yusi-group.com/wp-content/uploads/2022/02/%E4%B8%8A%E5%85%B8%E6%99%AF%E8%A7%80%E3%80%8A%E8%87%BA%E4%B8%AD%E6%96%87%E5%AD%B8%E9%A4%A8%E5%91%A8%E9%82%8A%E6%99%AF%E8%A7%80%E5%85%AC%E5%9C%92%E3%80%8B-2.jpeg"
+                        alt="台中文學館日式建築與庭園景觀"
+                        width="480">
+                    <figcaption>
+                        古樸的日式建築是台中文學館的重要特色。
+                        圖片來源：<a href="https://yusi-group.com/%E6%97%A5%E6%B2%BB%E6%99%82%E6%9C%9F%E8%80%81%E5%AE%BF%E8%88%8D%E9%87%8D%E7%94%9F%EF%BC%8C%E8%AE%93%E5%8F%B0%E4%B8%AD%E5%9C%A8%E5%9C%B0%E6%96%87%E5%8F%B2%E5%82%B3%E6%89%BF-%E4%B8%8A/" target="_blank" rel="noopener noreferrer">上典景觀</a>。
+                    </figcaption>
+                </figure>
+            </section>
+
+            <hr>
+            <section id="video">
+                <h2>五、影音報導</h2>
+                <p>透過下方影片認識台中文學館的日式風情與文學故事。</p>
+                <figure>
+                    <iframe
+                        class="video-frame"
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/65004EWe5ko"
+                        title="台中文學館介紹影片"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                    <figcaption>影片：台中文學館介紹影片。</figcaption>
+                </figure>
+                <p><a href="https://youtu.be/65004EWe5ko" target="_blank" rel="noopener noreferrer">在 YouTube 觀看台中文學館介紹影片（另開分頁）</a></p>
+                <p><small>影片為外部作者發布的介紹，現場狀況請以最新官方資訊為準。</small></p>
+            </section>
+
+            <section id="map">
+                <h2>六、位置地圖：找到台中文學館</h2>
+                <p>台中文學館位於台中市西區，地址為<strong>樂群街 38 號</strong>。
+                    下方地圖標示本文介紹的館舍位置，方便讀者對照景點與周邊街道。</p>
+                <iframe
+                    class="map-frame"
+                    src="https://maps.google.com/maps?q=24.13745,120.67102&amp;z=16&amp;output=embed"
+                    width="480"
+                    height="360"
+                    title="台中文學館位置 Google 地圖"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+                <p><a href="https://www.google.com/maps/search/?api=1&amp;query=%E5%8F%B0%E4%B8%AD%E6%96%87%E5%AD%B8%E9%A4%A8%2C%E5%8F%B0%E4%B8%AD%E5%B8%82" target="_blank" rel="noopener noreferrer">在 Google 地圖開啟台中文學館（另開分頁）</a></p>
+                <p><small>位置查詢由 Google 地圖提供；抵達後請依現場導覽牌確認入口與步道。</small></p>
+            </section>
+
+            <hr>
+            <aside id="tips" aria-labelledby="tips-title">
+                <h2 id="tips-title">走讀小提醒</h2>
+                <details open>
+                    <summary>參觀時的注意事項</summary>
+                    <ul>
+                        <li>穿著舒適鞋款，方便漫步於木棧道與庭園。</li>
+                        <li>尊重展覽規範，維護歷史建築與環境整潔。</li>
+                    </ul>
+                </details>
+            </aside>
+
+            <hr>
+            <section id="sources">
+                <h2>七、資料來源</h2>
+                <p>本報導依下列資料整理。</p>
+                <ul>
+                    <li><a href="https://travel.taichung.gov.tw/" target="_blank" rel="noopener noreferrer">臺中觀光旅遊網：台中文學館</a></li>
+                    <li><a href="https://www.tlm.taichung.gov.tw/" target="_blank" rel="noopener noreferrer">台中文學館官方網站</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=65004EWe5ko" target="_blank" rel="noopener noreferrer">YouTube：台中文學館介紹影片</a></li>
+                </ul>
+                <p><small>資料整理日期：2026 年 10 月 14 日。</small></p>
+            </section>
+        </article>
+    </main>
+
+    <hr>
+    <footer>
+        <p><strong>第六次 HTML 與 CSS 作業｜台中文學館報導</strong></p>
+        <p><small>作者：張以姍 · 更新日期：2026 年 10 月 14 日</small></p>
+        <p><small>CSS 教學參考：<a href="https://steam.oxxostudio.tw/category/css/info/how-to-use.html">STEAM：開始使用 CSS（方法一、方法二）</a>。</small></p>
+        <p><small>文字依來源整理；照片與影片權利屬原作者。本文為學生專題報導。</small></p>
+        <p><a href="#top">回到頁首</a></p>
+    </footer>
+</body>
+</html>
